@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Sign-Up</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <div class="container">
+    <div class="form-container">
+      <h2>Welcome to Our App</h2>
+
+      <!-- Tabs for Toggle -->
+      <div class="tab-container">
+        <button class="tab-button active" id="loginTab">Login</button>
+        <button class="tab-button" id="signupTab">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="form">
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <button type="submit" id="loginBtn">Login</button>
+      </form>
+
+      <!-- Sign-Up Form -->
+      <form id="signupForm" class="form hidden">
+        <input type="text" id="signupUsername" placeholder="Username" required>
+        <input type="email" id="signupEmail" placeholder="Email (optional)">
+        <input type="text" id="signupDisplayName" placeholder="Display Name">
+        <button type="submit" id="signupBtn">Register</button>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="particles.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
