@@ -62,7 +62,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
         if (result.success) {
             Swal.fire("Success", "Login successful!", "success").then(() => {
-                window.location.href = "dashboard.php"; // or any page you want
+                window.location.href = "index.php"; // or any page you want
             });
         } else {
             Swal.fire("Error", "Login failed. Invalid signature.", "error");
