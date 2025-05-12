@@ -1,25 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Encrypters-SignUp</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: block;
+      z-index: 0;
+    }
+
+    .form-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      width: 90%;
+      max-width: 400px;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+      color: white;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #3399ff;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #3399ff;
+      border-radius: 8px;
+      font-size: 16px;
+      background: black;
+      color: white;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3399ff;
+      box-shadow: 0 0 5px rgba(51, 153, 255, 0.5);
+    }
+
+    button {
+      background-color: #0066cc;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #3399ff;
+    }
+
+    .social-btns {
+      margin-top: 20px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google-btn {
+      background-color: #db4437;
+      color: white;
+    }
+
+    .github-btn {
+      background-color: #333;
+      color: white;
+    }
+
+    .social-btn i {
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body>
+  <canvas id="particleCanvas"></canvas>
 
-  <div class="container">
-    <div class="form-container">
-      <h2>Create an Account</h2>
-      <form id="signup-form">
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="email" id="email" placeholder="Email (optional)">
-        <input type="text" id="displayName" placeholder="Display Name">
+  <div class="form-container">
+    <h2>Welcome to Encrypters</h2>
+    <center><h3>Sign Up</h3></center>
+    <form id="signupForm">
+
+      <div id="emailSection">
+        <input type="email" id="email" placeholder="Enter your Email ID here..." required />
+        <button type="button" id="sendOtpBtn">Send OTP</button>
+        <div style="margin-top: 10px; text-align: center; color: #ccc;">
+          Already have an account?
+          <a href="login.html" style="color: #3399ff; text-decoration: none;">Login</a>
+        </div>
+      </div>
+
+      <div id="otpSection" style="display:none;">
+        <input type="text" id="otp" placeholder="Enter OTP" pattern="\d{6}" required />
+        <button type="button" id="verifyOtpBtn">Verify OTP</button>
+      </div>
+
+      <div id="registerSection" style="display:none;">
+        <input type="email" id="verifiedEmail" disabled /><br />
+        <input type="text" id="username" placeholder="Username" required /><br />
+        <input type="text" id="number" name="number" placeholder="Mobile Number" max="10" required>
         <button type="submit" id="registerBtn">Register</button>
-      </form>
-    </div>
+      </div>
+
+      <!-- Added: Separator -->
+      <div style="display: flex; align-items: center; text-align: center; margin: 20px 0; color: #888;">
+  <hr style="flex: 1; border: none; border-top: 1px solid #444;">
+  <span style="margin: 0 10px;">or</span>
+  <hr style="flex: 1; border: none; border-top: 1px solid #444;">
+</div>
+
+
+      <div class="social-btns">
+        <div class="social-btn google-btn">
+          <i class="bi bi-google"></i>
+          Continue with Google
+        </div>
+        <div class="social-btn github-btn">
+          <i class="bi bi-github"></i>
+          Continue with GitHub
+        </div>
+      </div>
+    </form>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    //full screen canvas drawing context in 2d
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    //create 80 particles in random position
+    const particleCount = 80;
+
+    //the size of the screen
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    //create a particle class and initialize the variable
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 3 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'dodgerblue';
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particlesArray = [];
+      for (let i = 0; i < particleCount; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+  </script>
+
+  <script src="signup.js"></script>
 </body>
 </html>
