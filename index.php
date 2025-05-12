@@ -179,8 +179,8 @@ session_start();
       </a>
       <div class="navbar-center d-none d-lg-block">
         <ul class="navbar-nav flex-row gap-3">
-          <li class="nav-item"><a class="nav-link active fw-semibold" href="dashboard.php">Home</a></li>
-          <li class="nav-item"><a class="nav-link fw-semibold" href="dashboard.php">Services</a></li>
+          <li class="nav-item"><a class="nav-link active fw-semibold" href="index.php">Home</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold" href="index.php">Services</a></li>
         </ul>
       </div>
       <div class="ms-auto">
