@@ -118,7 +118,7 @@ document.getElementById("sendOtpBtn").addEventListener("click", async () => {
       const result = await res.json();
       if (result.message === "User registered successfully") {
         Swal.fire("Success", result.message, "success").then(() => {
-          window.location.href = "dashboard.php";
+          window.location.href = "index.php";
         });
       } else {
         Swal.fire("Error", result.message || "Unknown error", "error");
